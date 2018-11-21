@@ -76,7 +76,8 @@ Since the original image distortion is not very serious, the effect is not obvio
 
 At the same time, I used the color space transformation method and gradient method to get the threshold binary image.  
 - Color space conversion method   
-    - In `HLS` color space, `S` component; This part is implemented in`./lane/color_threshold.py`  
+    - In `LUV` color space, `L` component; This part is implemented in`./lane/color_threshold.py`
+    - In `Lab` color space, `b` component; This part is implemented in`./lane/color_threshold.py`  
 - Gradient method: this part of the implementation is at`./lane/gradient_threshold.py`  
     - In the `x` direction,  
     - The `y` direction,  

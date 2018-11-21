@@ -29,7 +29,8 @@ def pipeline(image, mtx=m, dist=d, left_lane=l_lane, right_lane=r_lane):
     img = gaussian_blur(img, 3)
 
     # threshole
-    combined = combined_threshold(img, ksize=3,th=[[20, 100], [25, 254], [100, 250], [0.8, 1.3], [180, 254], [250, 0]])
+    combined = combined_threshold(img, ksize=3,th=[[20, 100], [25, 254], [100, 250], [0.8, 1.3], [180, 254], [155, 200],
+                                          [225, 255],[250, 0]])
     #
     # plt.imshow(combined, cmap="gray")
     # plt.show()

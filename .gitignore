@@ -1,0 +1,5 @@
+__pycache__/
+/lane/__pycache__/
+/lane/__pycache__/*.pyc
+/error_images/
+/.idea/
