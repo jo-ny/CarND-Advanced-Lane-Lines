@@ -6,21 +6,21 @@ import cv2
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 
-src = np.float32([[700, 460],  # 右上
-                  [1080, 720],  # 右下
-                  [200, 720],  # 左下
-                  [580, 460]])  # 左上
+src = np.float32([[700, 460],  # right_top
+                  [1080, 720],  # right_bottom
+                  [200, 720],  # left_bottom
+                  [580, 460]])  # left_top
 
-dst = np.float32([[980, 0],  # 右上
-                  [980, 720],  # 右下
-                  [300, 720],  # 左下
-                  [300, 0]])  # 左上
+dst = np.float32([[980, 0],  # right_top
+                  [980, 720],  # right_bottom
+                  [300, 720],  # left_bottom
+                  [300, 0]])  # left_top
 
 def perspective(img,src=src, dst=dst):
 
     # Compute and apply perpective transform
     img_size = (img.shape[1], img.shape[0])
-    M = cv2.getPerspectiveTransform(src, dst)  # 反向透视，对掉参数
+    M = cv2.getPerspectiveTransform(src, dst)  # Reverse perspective，对掉参数
     warped = cv2.warpPerspective(img, M, img_size, flags=cv2.INTER_NEAREST)  # keep same size as input image
     return warped
 

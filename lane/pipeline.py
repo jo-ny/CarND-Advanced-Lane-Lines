@@ -22,33 +22,33 @@ r_lane = Lane()
 
 
 def pipeline(image, mtx=m, dist=d, left_lane=l_lane, right_lane=r_lane):
-    # 去畸变
+    # remove distort
     img = undistort(image, mtx, dist)
 
-    # 平滑
+    # smooth
     img = gaussian_blur(img, 3)
 
-    # 阈值化
+    # threshole
     combined = combined_threshold(img, ksize=3,th=[[20, 100], [25, 254], [100, 250], [0.8, 1.3], [180, 254], [250, 0]])
     #
     # plt.imshow(combined, cmap="gray")
     # plt.show()
 
-    # 平滑
+    # smooth
     combined = gaussian_blur(combined, 3)
 
     # plt.imshow(combined, cmap="gray")
     # plt.show()
 
-    # 透视变化
+    # perspective
     perspectived_img = perspective(combined, src, dst)
     # plt.imshow(perspectived_img, cmap="gray")
     # plt.show()
 
-    # 检测左侧车道线
+    # find left lane line
     left_lane.fit(perspectived_img, location = "left")
 
-    # 检测右侧车道线
+    # find right lane line
     right_lane.fit(perspectived_img, location = "right")
 
 
@@ -57,10 +57,7 @@ def pipeline(image, mtx=m, dist=d, left_lane=l_lane, right_lane=r_lane):
     # plt.plot(left_lane.average_fitted_x,left_lane.ploty)
     # plt.plot(right_lane.average_fitted_x, right_lane.ploty)
 
-
-
-
-    # 计算曲率
+    # calculate curvature
     left_r = left_lane.measure_curvature_real(left_lane.ploty, left_lane.allx, left_lane.ally)
     right_r = right_lane.measure_curvature_real(right_lane.ploty, right_lane.allx, right_lane.ally)
     r = (left_r + right_r)/2
@@ -71,14 +68,15 @@ def pipeline(image, mtx=m, dist=d, left_lane=l_lane, right_lane=r_lane):
     # plt.text(600, 60, "diff_R = %d" % int(abs(left_r - right_r)), fontdict={'size': 10, 'color': 'w'})
     # plt.show()
 
-    # 计算偏移值
+    # calculate location of vehicle
     v = measure_vehicle_pos(left_lane.average_fitted_x, right_lane.average_fitted_x, left_lane.current_warped_binary_shape[1])
 
-    # 绘制车道线
+    # draw lane line in original image
     lane_img = draw_lane(image, combined, dst, src, left_lane.average_fitted_x, right_lane.average_fitted_x,right_lane.ploty)
     # plt.imshow(lane_img)
     # plt.show()
-    # 绘制文字
+    
+    # draw text to show curvature and location 
     lane_img_with_text = draw_text(lane_img, r, v)
 
 

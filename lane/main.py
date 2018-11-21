@@ -1,15 +1,7 @@
 # -*- coding: utf-8 -*-
+# use pipeline to precess project_video.mp4
+
 from lane.pipeline import pipeline
-
-# import matplotlib.image as mpimg
-# import matplotlib.pyplot as plt
-
-# def pipeline(images):
-
-    # return
-
-
-
 from moviepy.editor import VideoFileClip
 
 white_output = "../output_images/project_video.mp4"
